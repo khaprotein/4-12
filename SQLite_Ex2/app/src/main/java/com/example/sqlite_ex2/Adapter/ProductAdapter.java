@@ -8,17 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.sqlite_ex2.MainActivity;
 import com.example.sqlite_ex2.R;
 import com.example.sqlite_ex2.model.Product;
 
 import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
-    Context context;
+    MainActivity context;
     int item_layout;
     List<Product> productList;
 
-    public ProductAdapter(Context context, int item_layout, List<Product> productList) {
+    public ProductAdapter(MainActivity context, int item_layout, List<Product> productList) {
         this.context = context;
         this.item_layout = item_layout;
         this.productList = productList;
@@ -60,6 +61,21 @@ public class ProductAdapter extends BaseAdapter {
         //Binding data
         Product product = productList.get(position);
         viewHolder.txtInfo.setText(product.getProductName() + " - " + String.format("%.0f đ", product.getProductPrice()));
+        viewHolder.imvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Editing
+                context.openEditDialog(product);
+            }
+        });
+
+        viewHolder.imvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Deleting data
+
+            }
+        });
 
         return convertView;
     }
